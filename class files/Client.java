@@ -5,8 +5,9 @@ class Client {
 
     public static void main(String argv[]) throws Exception{
 
-        String sentence;
-        String modifiedSentence;
+        String userInput;
+        String serverResponse;
+        String serverResponse2;
         String host = argv[0];
         int port = (new Integer(argv[1])).intValue();
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
@@ -20,26 +21,77 @@ class Client {
         clientSocket.getInputStream()));
 
         System.out.println("Welcome to the hangman game!");
-        System.out.println("If you are the creator, please give the guesser a word. If you are the guesser, please type in guesser and wait for the word.");
-        System.out.println("The word that is to be guessed can have as many dashes as you wish. Eg: K--N--R-- for KANGAROO\r\n");
-        if(true){
-            String hangmanWord = inFromUser.readLine();
-            System.out.println("got hangmanWord from user: "+hangmanWord);
-            outToServer.writeBytes(hangmanWord + "\n");
-        }
-        while (true) {
+        System.out.println("If you are the creator, enter creator. If you are the guesser, enter guesser.");
+        // System.out.println("If you are the creator, please give the guesser a word. If you are the guesser, please type in guesser and wait for the guessing word.");
+        // System.out.print("The word that is to be guessed can have as many dashes as you wish. Eg: K--N--R-- for KANGAROO\r\n");
+        // if(true){
+            System.out.println("creator or guesser");
+            String player = inFromUser.readLine();
+            System.out.println("The player is a: "+player);
+            outToServer.writeBytes(player + "\n");
+            System.out.println("sent playr info to server");
+            
 
-            System.out.println("This is where the while loop for client starts");
-            System.out.println("Please enter a letter/word \n");
+            if(player.equals("creator")){
+                serverResponse = inFromServer.readLine();
+                System.out.println("got player related respond from server");
+                System.out.println(serverResponse);
 
-            sentence = inFromUser.readLine();
+                String hangmanWord = inFromUser.readLine();
+                System.out.println("got hangmanWord from user: "+hangmanWord);
+                outToServer.writeBytes(hangmanWord + "\n");
+                while (true) {
 
-            outToServer.writeBytes(sentence + "\n");
+                    System.out.println("This is where the while loop for creator starts");
+                    System.out.println("now waiting to get something from server first");
+                    
+                    serverResponse = inFromServer.readLine();
+                    System.out.println("got the serverResponse");
 
-            modifiedSentence = inFromServer.readLine();
+                    System.out.println(serverResponse);
 
-            System.out.println("RECEIVED FROM SERVER: " + modifiedSentence);
-        }
+                    System.out.println("getting input from user");
+                    userInput = inFromUser.readLine();
+                    System.out.println("got input from user and sending that to server");
+
+                    outToServer.writeBytes(userInput + "\n");
+                    System.out.println("sent the input to the server");
+                }
+            }
+            if(player.equals("guesser")){
+                serverResponse = inFromServer.readLine();
+                System.out.println("got player related respond from server");
+                System.out.println(serverResponse);
+
+                String waiting = inFromUser.readLine();
+                System.out.println("got waiting confirmation: "+waiting);
+                outToServer.writeBytes(waiting + "\n");
+
+                serverResponse = inFromServer.readLine();
+                System.out.println("got the guessign word from server. Now start playing");
+                System.out.println(serverResponse);
+                while (true) {
+
+                    System.out.println("This is where the while loop for guesser starts");
+                    System.out.println("please enter a letter");
+
+                    System.out.println("getting input from user");
+                    userInput = inFromUser.readLine();
+                    System.out.println("got input from user and sending that to server");
+        
+                    outToServer.writeBytes(userInput + "\n");
+                    System.out.println("sent the input to the server");
+
+                    System.out.println("now waiting to get something from server first");
+                    serverResponse = inFromServer.readLine();
+                    System.out.println("got the serverResponse");
+
+                    System.out.println(serverResponse);
+                }
+            }
+            
+        // }
+        
 
 
     }
