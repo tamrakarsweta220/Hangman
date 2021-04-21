@@ -9,7 +9,7 @@ import java.io.OptionalDataException;
 import java.io.IOException;
 import java.net.Socket;
 
-public class Handler extends Thread implements Serializable {
+public class Handler extends Thread{
 
     private Socket clientSocket;
     protected String chosenword;
@@ -88,36 +88,36 @@ public class Handler extends Thread implements Serializable {
                 }
 
                 //creates the hangmanCases class that implements the hangman cases
-                HangmanCases hangmanCase = new HangmanCases();
+                // HangmanCases hangmanCase = new HangmanCases();
                 
-                if (clientObj instanceof ClientMessages) {
-                    if (((ClientMessages) clientObj).getaction() == 1) {//Send action
-                        //Implement the server's response based on the client's actions on the game
-                        hangmanCase.compute(chosenword, clientdata, (ClientMessages) clientObj);
-                    }
-                    else if (((ClientMessages) clientObj).getaction() == 2) {//New Game
-                        //Initiallize failattempts and delete previously viewed messages
-                        clientdata.FailAttempts = 10;
-                        clientdata.message = "";
-                        clientdata.info = "";
-                        //Make a new choice
-                        chosenword = file.chooseword(Filename, file.countlines(Filename));
-                        System.out.println(chosenword);
-                        clientdata.word = new StringBuffer(file.dashWord(chosenword));
-                    }
-                    else if (((ClientMessages) clientObj).getaction() == 3) {//stop the client's running thread in the server side
-                        running=false;
-                    }
-                }
+                // if (clientObj instanceof ClientMessages) {
+                //     if (((ClientMessages) clientObj).getaction() == 1) {//Send action
+                //         //Implement the server's response based on the client's actions on the game
+                //         hangmanCase.compute(chosenword, clientdata, (ClientMessages) clientObj);
+                //     }
+                //     else if (((ClientMessages) clientObj).getaction() == 2) {//New Game
+                //         //Initiallize failattempts and delete previously viewed messages
+                //         clientdata.FailAttempts = 10;
+                //         clientdata.message = "";
+                //         clientdata.info = "";
+                //         //Make a new choice
+                //         chosenword = file.chooseword(Filename, file.countlines(Filename));
+                //         System.out.println(chosenword);
+                //         clientdata.word = new StringBuffer(file.dashWord(chosenword));
+                //     }
+                //     else if (((ClientMessages) clientObj).getaction() == 3) {//stop the client's running thread in the server side
+                //         running=false;
+                //     }
+                // }
                 
-                //send the servers response to the client
-                try {
-                    // output.reset();
-                    output.writeObject(clientdata);
-                    output.flush();
-                } catch (IOException e) {
-                    System.out.println(e.toString());
-                }
+                // //send the servers response to the client
+                // try {
+                //     // output.reset();
+                //     output.writeObject(clientdata);
+                //     output.flush();
+                // } catch (IOException e) {
+                //     System.out.println(e.toString());
+                // }
 
             }
             
