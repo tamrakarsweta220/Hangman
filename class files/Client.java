@@ -2,13 +2,15 @@ import java.io.*;
 import java.net.*;
 
 class Client {
-
     public static void main(String argv[]) throws Exception {
 
         String userInput;
         String serverResponse;
+        boolean gameOn=true;
+
         String host = argv[0];
         int port = (new Integer(argv[1])).intValue();
+
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
         Socket clientSocket = new Socket(host, port);
@@ -43,7 +45,7 @@ class Client {
             outToServer.writeBytes(dashedWord + "\n");
             System.out.println("Creator sent the dashedWord to the server.\n");
 
-            while (true) {
+            while (gameOn) {
 
                 System.out.println("This is where the while loop for creator starts. So, we are now waiting to get something from the server first.");
 
@@ -57,6 +59,9 @@ class Client {
 
                 outToServer.writeBytes(userInput + "\n");
                 System.out.println("Creator sent the input to the server.\n");
+                //compare and close socket
+
+                //change flag value
             }
         }
         if (player.equals("guesser")) {
@@ -72,7 +77,7 @@ class Client {
             serverResponse = inFromServer.readLine();
             System.out.println("Guesser got the dashedWord from the server. Now guesser can start playing by guessing individual letters.");
             System.out.println(serverResponse);
-            while (true) {
+            while (gameOn) {
 
                 System.out.println("This is where the while loop for guesser starts. Now, please start guessign by typing in a letter.\n");
 
@@ -86,6 +91,9 @@ class Client {
                 serverResponse = inFromServer.readLine();
                 System.out.println("Guesser got the response (correct or incorrect) from the creator.\n");
                 System.out.println(serverResponse);
+
+                //compare and close socket
+                // if(serverResponse)
             }
         }
     }
