@@ -68,7 +68,7 @@ public class ServerHandler implements Runnable {
                     System.out.println("Client 2 confirmed as guesser. Server is asking if the guesser is ready to play the game.\n");
                     waiting = client2br.readLine();
                     System.out.println("The guesser is ready to play the game.\n");
-                    os2.writeBytes("You need to guess: "+dashedWord+". You have "+attempts+" attempts. Please start by entering a letter to guess.\r\n"); 
+                    os2.writeBytes("You need to guess: "+dashedWord+". You have "+attempts+" attempts. Please start by entering a letter or the entire word to guess.\r\n"); 
                 }
 
                 /**
@@ -84,7 +84,7 @@ public class ServerHandler implements Runnable {
                     String letter2 = client2br.readLine();
                     System.out.println("Their guess is:"+letter2+"\n");
                     // System.out.println("Server is sending the letter guessed by guesser to creator.");
-                    os1.writeBytes("The guesser guessed this letter: "+letter2+". Is it a correct guess? If it is, replace the dashes with the letter. If not, give the same word from before."+ "\n");
+                    os1.writeBytes("The guesser guessed this letter/word: "+letter2+". Is it a correct guess? If it is, replace the dashes with the letter. If not, give the same word from before."+ "\n");
                     // System.out.println("Server sent the letter guessed by guesser to the creator.\n");
                     progressTracker=progress;
                     System.out.println("Server sent the guessing letter to creator and is waiting to hear back from the creator about the progress.\n");
@@ -100,9 +100,9 @@ public class ServerHandler implements Runnable {
                         System.out.println("The guesser lost the game. So the game has ended.\n");
                         break;
                     }else if(progress.equals(progressTracker)){
-                        os2.writeBytes("Your guess was incorrect. The progress so far is: "+progress+". You have "+i+" attempts remaining. Please enter another letter to guess."+ "\n");
+                        os2.writeBytes("Your guess was incorrect. The progress so far is: "+progress+". You have "+i+" attempts remaining. Please enter another letter or the entire word to guess."+ "\n");
                     }else{
-                        os2.writeBytes("Your guess was correct. The progress so far is: "+progress+". You have "+i+" attempts remaining. Please enter another letter to guess."+ "\n");
+                        os2.writeBytes("Your guess was correct. The progress so far is: "+progress+". You have "+i+" attempts remaining. Please enter another letter or the entire word to guess."+ "\n");
                     }
                 }
 

@@ -116,7 +116,7 @@ class Client {
 
                 outToServer.writeBytes(userInput + "\n");
                 // System.out.println("Guesser sent the letter to the server. Now, it is waiting to hear if their guess was correct or incorrect.\n");
-                System.out.println("The creator is checking if you guessed the right letter.\n");
+                System.out.println("The creator is checking if you guessed the right letter/word.\n");
 
                 serverResponse = inFromServer.readLine();
                 // System.out.println("Guesser got the response (correct or incorrect) from the creator.\n");
