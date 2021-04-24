@@ -2,6 +2,14 @@ import java.io.* ;
 import java.net.* ; 
 import java.util.* ;
 
+/**
+ * 
+ * @author Sweta Tamrakar & Burhan Muhammad
+ * @version  version 1.0
+ *
+ *This class helps us build a multi-threaded Server that is capable of processing
+ multiple simultaneous service requests in parallel.
+ */
 public class Server {
     public static void main(String argv[]) throws Exception {
         // Get the port number from the command line.
